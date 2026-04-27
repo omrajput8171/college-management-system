@@ -1,0 +1,100 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Attendance{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Attendance Management</h1>
+    <p>Mark and view student attendance</p>
+</div>
+
+<!-- Mark Attendance -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-clipboard-check"></i> Mark Attendance</h2>
+    </div>
+    <form action="/teacher/attendance" method="POST">
+        <div class="form-group" style="max-width: 300px;">
+            <label>Select Date</label>
+            <input type="date" name="date" value="{{ selected_date }}" required>
+        </div>
+        
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Student Name</th>
+                        <th>Class</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student.roll_no }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.class }} - {{ student.section }}</td>
+                        <td>
+                            <input type="hidden" name="student_id" value="{{ student.id }}">
+                            <select name="status" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #e5e7eb;">
+                                <option value="Present">Present</option>
+                                <option value="Absent">Absent</option>
+                            </select>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" style="text-align: center; color: #666;">No students found. Add students first.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        {% if students %}
+        <button type="submit" class="btn btn-primary" style="margin-top: 16px;"><i class="fas fa-save"></i> Save Attendance</button>
+        {% endif %}
+    </form>
+</div>
+
+<!-- View Attendance Records -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-list"></i> Attendance Records</h2>
+        <form method="GET" style="display: flex; gap: 8px; align-items: center;">
+            <input type="date" name="date" value="{{ selected_date }}" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #e5e7eb;">
+            <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> View</button>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in attendance_records %}
+                <tr>
+                    <td>{{ record.roll_no }}</td>
+                    <td>{{ record.name }}</td>
+                    <td>{{ record.date }}</td>
+                    <td>
+                        <span class="badge badge-{{ record.status|lower }}">{{ record.status }}</span>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center; color: #666;">No attendance records for this date.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+

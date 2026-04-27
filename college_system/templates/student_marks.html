@@ -1,0 +1,75 @@
+{% extends "base_student.html" %}
+
+{% block title %}Results{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>My Results</h1>
+    <p>View your subject-wise marks and performance</p>
+</div>
+
+<!-- Marks Summary -->
+<div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-book"></i></div>
+        <div class="stat-info">
+            <h3>{{ marks|length }}</h3>
+            <p>Subjects</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-star"></i></div>
+        <div class="stat-info">
+            <h3>{{ total_marks }} / {{ max_marks }}</h3>
+            <p>Total Marks</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon purple"><i class="fas fa-percentage"></i></div>
+        <div class="stat-info">
+            <h3>{{ percentage }}%</h3>
+            <p>Percentage</p>
+        </div>
+    </div>
+</div>
+
+<!-- Marks Table -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-list"></i> Subject-wise Marks</h2>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Max Marks</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mark in marks %}
+                <tr>
+                    <td>{{ mark.subject }}</td>
+                    <td><strong>{{ mark.marks }}</strong></td>
+                    <td>100</td>
+                    <td>
+                        {% if mark.marks >= 40 %}
+                        <span class="badge badge-present">Pass</span>
+                        {% else %}
+                        <span class="badge badge-absent">Fail</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center; color: #666;">No marks recorded yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+

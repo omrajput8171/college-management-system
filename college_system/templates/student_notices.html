@@ -1,0 +1,28 @@
+{% extends "base_student.html" %}
+
+{% block title %}Notices{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Notices & Announcements</h1>
+    <p>Latest updates from your teachers</p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-bullhorn"></i> All Notices</h2>
+    </div>
+    {% if notices %}
+        {% for notice in notices %}
+        <div class="notice-item">
+            <h4>{{ notice.title }}</h4>
+            <p>{{ notice.description }}</p>
+            <small><i class="fas fa-calendar"></i> {{ notice.date }}</small>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p style="color: #666;">No notices posted yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
+

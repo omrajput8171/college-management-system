@@ -1,0 +1,58 @@
+{% extends "base_student.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>My Profile</h1>
+    <p>Your personal information</p>
+</div>
+
+<div class="card profile-card">
+    <div class="profile-header">
+        <div class="profile-avatar">
+            <i class="fas fa-user-graduate"></i>
+        </div>
+        <div class="profile-info">
+            <h3>{{ student.name }}</h3>
+            <p><i class="fas fa-envelope"></i> {{ student.email }}</p>
+            <p><i class="fas fa-id-card"></i> Roll No: {{ student.roll_no }}</p>
+        </div>
+    </div>
+
+    <h3 style="margin-bottom: 16px; font-size: 1.1rem;"><i class="fas fa-info-circle"></i> Personal Details</h3>
+    <div class="form-grid">
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" value="{{ student.name }}" readonly style="background: #f9fafb;">
+        </div>
+        <div class="form-group">
+            <label>Roll Number</label>
+            <input type="text" value="{{ student.roll_no }}" readonly style="background: #f9fafb;">
+        </div>
+        <div class="form-group">
+            <label>Class</label>
+            <input type="text" value="{{ student.class }}" readonly style="background: #f9fafb;">
+        </div>
+        <div class="form-group">
+            <label>Section</label>
+            <input type="text" value="{{ student.section }}" readonly style="background: #f9fafb;">
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" value="{{ student.email }}" readonly style="background: #f9fafb;">
+        </div>
+        <div class="form-group">
+            <label>Contact</label>
+            <input type="text" value="{{ student.contact or '-' }}" readonly style="background: #f9fafb;">
+        </div>
+    </div>
+
+    <div style="margin-top: 24px; padding: 16px; background: #f0f7ff; border-radius: 10px; border-left: 4px solid #667eea;">
+        <p style="font-size: 0.9rem; color: #333; margin: 0;">
+            <i class="fas fa-lock"></i> <strong>Note:</strong> Your profile information is managed by the administration. For any changes, please contact your teacher or admin.
+        </p>
+    </div>
+</div>
+{% endblock %}
+

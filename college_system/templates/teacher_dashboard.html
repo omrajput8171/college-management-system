@@ -1,0 +1,62 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Dashboard</h1>
+    <p>Overview of your classes and activities</p>
+</div>
+
+<!-- Stats Cards -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
+        <div class="stat-info">
+            <h3>{{ total_students }}</h3>
+            <p>Total Students</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-clipboard-check"></i></div>
+        <div class="stat-info">
+            <h3>{{ today_attendance }}</h3>
+            <p>Today's Attendance</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon orange"><i class="fas fa-chart-line"></i></div>
+        <div class="stat-info">
+            <h3>{{ notices|length }}</h3>
+            <p>Recent Notices</p>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="quick-actions">
+    <a href="/teacher/students" class="btn btn-primary"><i class="fas fa-plus"></i> Add Student</a>
+    <a href="/teacher/attendance" class="btn btn-success"><i class="fas fa-check"></i> Mark Attendance</a>
+    <a href="/teacher/marks" class="btn btn-secondary"><i class="fas fa-pen"></i> Add Marks</a>
+</div>
+
+<!-- Recent Notices -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-bullhorn"></i> Recent Notices</h2>
+        <a href="/teacher/notices" class="btn btn-sm btn-primary">View All</a>
+    </div>
+    {% if notices %}
+        {% for notice in notices %}
+        <div class="notice-item">
+            <h4>{{ notice.title }}</h4>
+            <p>{{ notice.description }}</p>
+            <small><i class="fas fa-calendar"></i> {{ notice.date }}</small>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p style="color: #666;">No notices available.</p>
+    {% endif %}
+</div>
+{% endblock %}
+

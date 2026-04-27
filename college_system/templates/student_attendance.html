@@ -1,0 +1,67 @@
+{% extends "base_student.html" %}
+
+{% block title %}Attendance{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>My Attendance</h1>
+    <p>View your attendance records</p>
+</div>
+
+<!-- Attendance Summary -->
+<div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-calendar-alt"></i></div>
+        <div class="stat-info">
+            <h3>{{ total_classes }}</h3>
+            <p>Total Classes</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+        <div class="stat-info">
+            <h3>{{ present_classes }}</h3>
+            <p>Present</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon purple"><i class="fas fa-percentage"></i></div>
+        <div class="stat-info">
+            <h3>{{ attendance_percentage }}%</h3>
+            <p>Attendance %</p>
+        </div>
+    </div>
+</div>
+
+<!-- Attendance Records -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-list"></i> Attendance Records</h2>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in attendance_records %}
+                <tr>
+                    <td>{{ record.date }}</td>
+                    <td>
+                        <span class="badge badge-{{ record.status|lower }}">{{ record.status }}</span>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="2" style="text-align: center; color: #666;">No attendance records found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+

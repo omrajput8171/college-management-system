@@ -1,0 +1,73 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Marks{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Marks Management</h1>
+    <p>Add and update student marks subject-wise</p>
+</div>
+
+<!-- Add Marks Form -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-plus-circle"></i> Add / Update Marks</h2>
+    </div>
+    <form action="/teacher/marks" method="POST">
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Student</label>
+                <select name="student_id" required>
+                    <option value="">Select Student</option>
+                    {% for student in students %}
+                    <option value="{{ student.id }}">{{ student.name }} ({{ student.roll_no }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Subject</label>
+                <input type="text" name="subject" placeholder="e.g. Mathematics" required>
+            </div>
+            <div class="form-group">
+                <label>Marks</label>
+                <input type="number" name="marks" placeholder="Enter marks" min="0" max="100" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 12px;"><i class="fas fa-save"></i> Save Marks</button>
+    </form>
+</div>
+
+<!-- Marks List -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-list"></i> All Marks</h2>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Student Name</th>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mark in marks %}
+                <tr>
+                    <td>{{ mark.roll_no }}</td>
+                    <td>{{ mark.name }}</td>
+                    <td>{{ mark.subject }}</td>
+                    <td><strong>{{ mark.marks }}</strong></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center; color: #666;">No marks recorded yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+

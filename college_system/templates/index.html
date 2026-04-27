@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><i class="fas fa-graduation-cap"></i> EduTech College</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title"><span>College</span> Management System</h1>
+            <p class="hero-tagline">Manage Students, Teachers and Courses Easily</p>
+
+            <div class="login-cards">
+                <div class="glass-card">
+                    <div class="card-icon"><i class="fas fa-user-shield"></i></div>
+                    <h3>Admin Login</h3>
+                    <p>Manage institution settings, users, and system overview.</p>
+                    <a href="/admin/login" class="btn btn-primary">Admin Login</a>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3>Teacher Login</h3>
+                    <p>Access your classes, attendance, and grades dashboard.</p>
+                    <a href="/teacher/login" class="btn btn-primary">Teacher Login</a>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-icon"><i class="fas fa-user-graduate"></i></div>
+                    <h3>Student Login</h3>
+                    <p>View your courses, assignments, and academic records.</p>
+                    <a href="/student/login" class="btn btn-primary">Student Login</a>
+                </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <h4>EduTech College</h4>
+            <p>Shaping futures through excellence in education.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; 2026 EduTech College. All rights reserved.
+            </div>
+    </footer>
+
+</body>
+</html>

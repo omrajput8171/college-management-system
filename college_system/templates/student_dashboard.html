@@ -1,0 +1,95 @@
+{% extends "base_student.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Welcome, {{ student.name }}!</h1>
+    <p>Here is your academic overview</p>
+</div>
+
+<!-- Stats Cards -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-clipboard-check"></i></div>
+        <div class="stat-info">
+            <h3>{{ present_classes }} / {{ total_classes }}</h3>
+            <p>Classes Attended</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-percentage"></i></div>
+        <div class="stat-info">
+            <h3>{{ attendance_percentage }}%</h3>
+            <p>Attendance</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon purple"><i class="fas fa-chart-line"></i></div>
+        <div class="stat-info">
+            <h3>{{ marks_percentage }}%</h3>
+            <p>Marks Percentage</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon orange"><i class="fas fa-graduation-cap"></i></div>
+        <div class="stat-info">
+            <h3>{{ student.class }} - {{ student.section }}</h3>
+            <p>Class & Section</p>
+        </div>
+    </div>
+</div>
+
+<!-- Student Info Card -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-user"></i> Student Information</h2>
+    </div>
+    <div class="form-grid">
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" value="{{ student.name }}" readonly style="background: #f9fafb;">
+        </div>
+        <div class="form-group">
+            <label>Roll Number</label>
+            <input type="text" value="{{ student.roll_no }}" readonly style="background: #f9fafb;">
+        </div>
+        <div class="form-group">
+            <label>Class</label>
+            <input type="text" value="{{ student.class }}" readonly style="background: #f9fafb;">
+        </div>
+        <div class="form-group">
+            <label>Section</label>
+            <input type="text" value="{{ student.section }}" readonly style="background: #f9fafb;">
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" value="{{ student.email }}" readonly style="background: #f9fafb;">
+        </div>
+        <div class="form-group">
+            <label>Contact</label>
+            <input type="text" value="{{ student.contact or '-' }}" readonly style="background: #f9fafb;">
+        </div>
+    </div>
+</div>
+
+<!-- Recent Notices -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-bullhorn"></i> Recent Notices</h2>
+        <a href="/student/notices" class="btn btn-sm btn-primary">View All</a>
+    </div>
+    {% if notices %}
+        {% for notice in notices %}
+        <div class="notice-item">
+            <h4>{{ notice.title }}</h4>
+            <p>{{ notice.description }}</p>
+            <small><i class="fas fa-calendar"></i> {{ notice.date }}</small>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p style="color: #666;">No notices available.</p>
+    {% endif %}
+</div>
+{% endblock %}
+

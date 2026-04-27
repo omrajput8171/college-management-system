@@ -1,0 +1,87 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Notices{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Notice Management</h1>
+    <p>Add, edit and delete notices</p>
+</div>
+
+<!-- Add/Edit Notice Form -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-plus-circle"></i> Add New Notice</h2>
+    </div>
+    <form action="/admin/notices" method="POST">
+        <input type="hidden" name="notice_id" id="notice_id">
+        <div class="form-grid">
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label>Title</label>
+                <input type="text" name="title" id="notice_title" placeholder="Enter notice title" required>
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label>Description</label>
+                <textarea name="description" id="notice_description" rows="4" placeholder="Enter notice description" required style="width: 100%; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; background: rgba(255,255,255,0.05); color: #fff; font-family: 'Poppins', sans-serif; font-size: 0.95rem; resize: vertical;"></textarea>
+            </div>
+        <div style="display: flex; gap: 12px; margin-top: 12px;">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add Notice</button>
+            <button type="button" class="btn btn-outline" onclick="clearForm()"><i class="fas fa-times"></i> Clear</button>
+        </div>
+    </form>
+</div>
+
+<!-- Notices Table -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-list"></i> All Notices</h2>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for notice in notices %}
+                <tr>
+                    <td>{{ notice.id }}</td>
+                    <td>{{ notice.title }}</td>
+                    <td>{{ notice.description }}</td>
+                    <td>{{ notice.date }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-secondary" onclick="editNotice({{ notice.id }}, '{{ notice.title }}', '{{ notice.description }}')"><i class="fas fa-edit"></i></button>
+                        <a href="/admin/notices/delete/{{ notice.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Delete this notice?')"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center; color: #666;">No notices found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function editNotice(id, title, description) {
+    document.getElementById('notice_id').value = id;
+    document.getElementById('notice_title').value = title;
+    document.getElementById('notice_description').value = description;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function clearForm() {
+    document.getElementById('notice_id').value = '';
+    document.getElementById('notice_title').value = '';
+    document.getElementById('notice_description').value = '';
+}
+</script>
+{% endblock %}

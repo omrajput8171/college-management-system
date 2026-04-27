@@ -1,0 +1,62 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Admin Dashboard</h1>
+    <p>Overview of the institution</p>
+</div>
+
+<!-- Stats Grid -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
+        <div class="stat-info">
+            <h3>{{ total_students }}</h3>
+            <p>Total Students</p>
+        </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-chalkboard-teacher"></i></div>
+        <div class="stat-info">
+            <h3>{{ total_teachers }}</h3>
+            <p>Total Teachers</p>
+        </div>
+    <div class="stat-card">
+        <div class="stat-icon purple"><i class="fas fa-school"></i></div>
+        <div class="stat-info">
+            <h3>{{ total_classes }}</h3>
+            <p>Total Classes</p>
+        </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+    </div>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="/admin/teachers" class="btn btn-primary"><i class="fas fa-plus"></i> Add Teacher</a>
+        <a href="/admin/students" class="btn btn-primary"><i class="fas fa-list"></i> View Students</a>
+        <a href="/admin/notices" class="btn btn-primary"><i class="fas fa-bullhorn"></i> Add Notice</a>
+    </div>
+
+<!-- Recent Notices -->
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-bullhorn"></i> Recent Notices</h2>
+        <a href="/admin/notices" class="btn btn-sm btn-primary">View All</a>
+    </div>
+    {% if notices %}
+        {% for notice in notices %}
+        <div class="notice-item">
+            <h4>{{ notice.title }}</h4>
+            <p>{{ notice.description }}</p>
+            <small><i class="fas fa-calendar"></i> {{ notice.date }}</small>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p style="color: #666;">No notices posted yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

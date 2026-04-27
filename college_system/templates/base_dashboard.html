@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Teacher Dashboard{% endblock %} - EduTech College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <h2><i class="fas fa-graduation-cap"></i> EduTech</h2>
+        </div>
+        
+        <div class="sidebar-user">
+            <p>Welcome,</p>
+            <h4>{{ session.get('user_name', 'Teacher') }}</h4>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li><a href="/teacher/dashboard" class="{% if request.path == '/teacher/dashboard' %}active{% endif %}">
+                <i class="fas fa-home"></i> Dashboard
+            </a></li>
+            <li><a href="/teacher/students" class="{% if request.path == '/teacher/students' %}active{% endif %}">
+                <i class="fas fa-user-graduate"></i> Students
+            </a></li>
+            <li><a href="/teacher/attendance" class="{% if request.path == '/teacher/attendance' %}active{% endif %}">
+                <i class="fas fa-clipboard-check"></i> Attendance
+            </a></li>
+            <li><a href="/teacher/marks" class="{% if request.path == '/teacher/marks' %}active{% endif %}">
+                <i class="fas fa-chart-line"></i> Marks
+            </a></li>
+            <li><a href="/teacher/notices" class="{% if request.path == '/teacher/notices' %}active{% endif %}">
+                <i class="fas fa-bullhorn"></i> Notices
+            </a></li>
+            <li><a href="/teacher/profile" class="{% if request.path == '/teacher/profile' %}active{% endif %}">
+                <i class="fas fa-user-circle"></i> Profile
+            </a></li>
+            <li class="logout"><a href="/logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a></li>
+        </ul>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Dashboard{% endblock %} - EduTech College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <h2><i class="fas fa-graduation-cap"></i> EduTech</h2>
+        </div>
+        
+        <div class="sidebar-user">
+            <p>Welcome,</p>
+            <h4>{{ session.get('user_name', 'Admin') }}</h4>
+            <small style="color: #a0aec0;">Administrator</small>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li><a href="/admin/dashboard" class="{% if request.path == '/admin/dashboard' %}active{% endif %}">
+                <i class="fas fa-home"></i> Dashboard
+            </a></li>
+            <li><a href="/admin/teachers" class="{% if request.path == '/admin/teachers' %}active{% endif %}">
+                <i class="fas fa-chalkboard-teacher"></i> Teachers
+            </a></li>
+            <li><a href="/admin/students" class="{% if request.path == '/admin/students' %}active{% endif %}">
+                <i class="fas fa-user-graduate"></i> Students
+            </a></li>
+            <li><a href="/admin/notices" class="{% if request.path == '/admin/notices' %}active{% endif %}">
+                <i class="fas fa-bullhorn"></i> Notices
+            </a></li>
+            <li class="logout"><a href="/logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a></li>
+        </ul>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
